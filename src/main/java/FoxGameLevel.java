@@ -6,25 +6,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.bitdecay.jump.BitBody;
-import com.bitdecay.jump.BodyType;
-import com.bitdecay.jump.JumperBody;
 import com.bitdecay.jump.collision.BitWorld;
-import com.bitdecay.jump.control.PlayerInputController;
-import com.bitdecay.jump.gdx.input.GDXControls;
 import com.bitdecay.jump.gdx.level.EditorIdentifierObject;
 import com.bitdecay.jump.gdx.level.RenderableLevelObject;
-import com.bitdecay.jump.geom.BitRectangle;
 import com.bitdecay.jump.level.Level;
 import com.bitdecay.jump.level.builder.DebugSpawnObject;
 import com.bitdecay.jump.level.builder.LevelObject;
 import com.bitdecay.jump.level.builder.TileObject;
 import com.bitdecay.jump.leveleditor.EditorHook;
 import com.bitdecay.jump.leveleditor.example.game.GameObject;
-import com.bitdecay.jump.leveleditor.example.game.PlayerObject;
 import com.bitdecay.jump.leveleditor.example.game.SecretObject;
 import com.bitdecay.jump.leveleditor.example.level.SecretThing;
 import com.bitdecay.jump.leveleditor.render.LevelEditor;
-import com.bitdecay.jump.render.JumperRenderStateWatcher;
 
 import java.util.*;
 
