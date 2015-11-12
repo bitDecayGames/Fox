@@ -38,7 +38,6 @@ public class FoxGameLevel implements EditorHook {
 
     Map<Integer, TextureRegion[]> tilesetMap = new HashMap<>();
 
-    TextureRegion playerTex = new TextureRegion();
     public FoxGameLevel() {
         world.setGravity(0, -900);
         tilesetMap.put(0, new TextureRegion(new Texture(Gdx.files.internal(LevelEditor.EDITOR_ASSETS_FOLDER + "/fallbacktileset.png"))).split(16, 16)[0]);
