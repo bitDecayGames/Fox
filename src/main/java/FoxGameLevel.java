@@ -29,7 +29,7 @@ import java.util.*;
 /**
  * Created by Monday on 10/18/2015.
  */
-public class ExampleEditorLevel implements EditorHook {
+public class FoxGameLevel implements EditorHook {
     BitWorld world = new BitWorld();
 
     SpriteBatch batch = new SpriteBatch();
@@ -43,7 +43,7 @@ public class ExampleEditorLevel implements EditorHook {
 
     Map<Integer, TextureRegion[]> tilesetMap = new HashMap<>();
 
-    public ExampleEditorLevel() {
+    public FoxGameLevel() {
         world.setGravity(0, -900);
         tilesetMap.put(0, new TextureRegion(new Texture(Gdx.files.internal(LevelEditor.EDITOR_ASSETS_FOLDER + "/fallbacktileset.png"))).split(16, 16)[0]);
         tilesetMap.put(1, new TextureRegion(new Texture(Gdx.files.internal(LevelEditor.EDITOR_ASSETS_FOLDER + "/templatetileset.png"))).split(16, 16)[0]);

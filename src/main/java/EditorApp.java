@@ -5,7 +5,7 @@ public class EditorApp extends Game {
 
     @Override
     public void create() {
-        ExampleEditorLevel level = new ExampleEditorLevel();
+        FoxGameLevel level = new FoxGameLevel();
         setScreen(new LevelEditor(level));
     }
 
