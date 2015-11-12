@@ -68,13 +68,13 @@ public class ExampleEditorLevel implements EditorHook {
 
     private void drawBackground(final OrthographicCamera cam) {
         // Crappy example background rendering
-        if (currentLevel.background == -1) {
+        if (currentLevel.theme == -1) {
             return;
         }
         TextureRegion dirtThumb = new TextureRegion(new Texture(Gdx.files.internal(LevelEditor.EDITOR_ASSETS_FOLDER + "/dirtThumb.png")));
         TextureRegion iceThumb = new TextureRegion(new Texture(Gdx.files.internal(LevelEditor.EDITOR_ASSETS_FOLDER + "/iceThumb.png")));
         Vector3 zero = cam.unproject(new Vector3(0, Gdx.graphics.getHeight(), 0));
-        TextureRegion background = currentLevel.background == 0 ? dirtThumb : iceThumb;
+        TextureRegion background = currentLevel.theme == 0 ? dirtThumb : iceThumb;
         batch.setColor(Color.DARK_GRAY);
         batch.draw(background, zero.x, zero.y, cam.viewportWidth * cam.zoom, cam.viewportHeight * cam.zoom);
         batch.setColor(Color.WHITE);
@@ -137,13 +137,13 @@ public class ExampleEditorLevel implements EditorHook {
         world.setObjects(buildBodies(level.otherObjects));
         world.resetTimePassed();
 
-        if (level.spawn != null) {
+        if (level.debugSpawn != null) {
             JumperBody playerBody = new JumperBody();
-            playerBody.props = level.spawn.props;
-            playerBody.jumperProps = level.spawn.jumpProps;
+            playerBody.props = level.debugSpawn.props;
+            playerBody.jumperProps = level.debugSpawn.jumpProps;
 
             playerBody.bodyType = BodyType.DYNAMIC;
-            playerBody.aabb = new BitRectangle(level.spawn.rect.xy.x,level.spawn.rect.xy.y,16,32);
+            playerBody.aabb = new BitRectangle(level.debugSpawn.rect.xy.x,level.debugSpawn.rect.xy.y,16,32);
             playerBody.renderStateWatcher = new JumperRenderStateWatcher();
             playerBody.controller = new PlayerInputController(GDXControls.defaultMapping);
 
