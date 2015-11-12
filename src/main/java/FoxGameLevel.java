@@ -15,10 +15,12 @@ import com.bitdecay.jump.gdx.level.EditorIdentifierObject;
 import com.bitdecay.jump.gdx.level.RenderableLevelObject;
 import com.bitdecay.jump.geom.BitRectangle;
 import com.bitdecay.jump.level.Level;
+import com.bitdecay.jump.level.builder.DebugSpawnObject;
 import com.bitdecay.jump.level.builder.LevelObject;
 import com.bitdecay.jump.level.builder.TileObject;
 import com.bitdecay.jump.leveleditor.EditorHook;
 import com.bitdecay.jump.leveleditor.example.game.GameObject;
+import com.bitdecay.jump.leveleditor.example.game.PlayerObject;
 import com.bitdecay.jump.leveleditor.example.game.SecretObject;
 import com.bitdecay.jump.leveleditor.example.level.SecretThing;
 import com.bitdecay.jump.leveleditor.render.LevelEditor;
@@ -43,10 +45,12 @@ public class FoxGameLevel implements EditorHook {
 
     Map<Integer, TextureRegion[]> tilesetMap = new HashMap<>();
 
+    TextureRegion playerTex = new TextureRegion();
     public FoxGameLevel() {
         world.setGravity(0, -900);
         tilesetMap.put(0, new TextureRegion(new Texture(Gdx.files.internal(LevelEditor.EDITOR_ASSETS_FOLDER + "/fallbacktileset.png"))).split(16, 16)[0]);
         tilesetMap.put(1, new TextureRegion(new Texture(Gdx.files.internal(LevelEditor.EDITOR_ASSETS_FOLDER + "/templatetileset.png"))).split(16, 16)[0]);
+
     }
 
     @Override
@@ -134,21 +138,12 @@ public class FoxGameLevel implements EditorHook {
         world.setGridOffset(level.gridOffset);
         world.setGrid(level.gridObjects);
         world.setTileSize(level.tileSize);
+        if (level.debugSpawn != null) {
+            level.otherObjects.add(level.debugSpawn);
+        }
         world.setObjects(buildBodies(level.otherObjects));
         world.resetTimePassed();
 
-        if (level.debugSpawn != null) {
-            JumperBody playerBody = new JumperBody();
-            playerBody.props = level.debugSpawn.props;
-            playerBody.jumperProps = level.debugSpawn.jumpProps;
-
-            playerBody.bodyType = BodyType.DYNAMIC;
-            playerBody.aabb = new BitRectangle(level.debugSpawn.rect.xy.x,level.debugSpawn.rect.xy.y,16,32);
-            playerBody.renderStateWatcher = new JumperRenderStateWatcher();
-            playerBody.controller = new PlayerInputController(GDXControls.defaultMapping);
-
-            world.addBody(playerBody);
-        }
     }
 
     @Override
@@ -169,6 +164,7 @@ public class FoxGameLevel implements EditorHook {
     @Override
     public List<RenderableLevelObject> getCustomObjects() {
         builderMap.put(SecretThing.class, SecretObject.class);
+        builderMap.put(DebugSpawnObject.class, PlayerObject.class);
         List<RenderableLevelObject> exampleItems = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
             exampleItems.add(new SecretThing());
