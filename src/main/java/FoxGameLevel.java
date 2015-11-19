@@ -1,4 +1,6 @@
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -18,6 +20,8 @@ import com.bitdecay.jump.leveleditor.example.game.GameObject;
 import com.bitdecay.jump.leveleditor.example.game.SecretObject;
 import com.bitdecay.jump.leveleditor.example.level.SecretThing;
 import com.bitdecay.jump.leveleditor.render.LevelEditor;
+import com.bytebreak.animagic.BitTextureAtlas;
+import com.bytebreak.animagic.BitTextureAtlasLoader;
 
 import java.util.*;
 
@@ -25,6 +29,9 @@ import java.util.*;
  * Created by Monday on 10/18/2015.
  */
 public class FoxGameLevel implements EditorHook {
+
+    public static AssetManager assetManager = new AssetManager();
+
     BitWorld world = new BitWorld();
 
     SpriteBatch batch = new SpriteBatch();
@@ -39,14 +46,23 @@ public class FoxGameLevel implements EditorHook {
     Map<Integer, TextureRegion[]> tilesetMap = new HashMap<>();
 
     public FoxGameLevel() {
+        loadAssets();
         world.setGravity(0, -900);
         tilesetMap.put(0, new TextureRegion(new Texture(Gdx.files.internal(LevelEditor.EDITOR_ASSETS_FOLDER + "/fallbacktileset.png"))).split(16, 16)[0]);
         tilesetMap.put(1, new TextureRegion(new Texture(Gdx.files.internal(LevelEditor.EDITOR_ASSETS_FOLDER + "/templatetileset.png"))).split(16, 16)[0]);
+    }
 
+    private void loadAssets() {
+        assetManager.setLoader(BitTextureAtlas.class, new BitTextureAtlasLoader(new InternalFileHandleResolver()));
+        assetManager.load("packed/character.atlas", BitTextureAtlas.class);
+        assetManager.finishLoading();
     }
 
     @Override
     public void update(float delta) {
+        for (GameObject object : gameObjects) {
+            object.update(delta);
+        }
         world.step(delta);
     }
 
