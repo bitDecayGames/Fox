@@ -7,6 +7,7 @@ import com.bitdecay.jump.BodyType;
 import com.bitdecay.jump.JumperBody;
 import com.bitdecay.jump.control.PlayerInputController;
 import com.bitdecay.jump.gdx.input.GDXControls;
+import com.bitdecay.jump.gdx.integration.BitTextureAtlas;
 import com.bitdecay.jump.geom.BitRectangle;
 import com.bitdecay.jump.level.builder.DebugSpawnObject;
 import com.bitdecay.jump.level.builder.LevelObject;
@@ -15,8 +16,6 @@ import com.bitdecay.jump.render.JumperRenderState;
 import com.bitdecay.jump.render.JumperRenderStateWatcher;
 import com.bytebreak.animagic.Animation;
 import com.bytebreak.animagic.Animator;
-import com.bytebreak.animagic.BitTextureAtlas;
-import com.bytebreak.animagic.IFrameByFrameAnimation;
 
 /**
  * Created by jake on 11/11/2015.

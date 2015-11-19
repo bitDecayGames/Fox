@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.bitdecay.jump.BitBody;
 import com.bitdecay.jump.collision.BitWorld;
+import com.bitdecay.jump.gdx.integration.BitTextureAtlas;
+import com.bitdecay.jump.gdx.integration.BitTextureAtlasLoader;
 import com.bitdecay.jump.gdx.level.EditorIdentifierObject;
 import com.bitdecay.jump.gdx.level.RenderableLevelObject;
 import com.bitdecay.jump.level.Level;
@@ -20,8 +22,6 @@ import com.bitdecay.jump.leveleditor.example.game.GameObject;
 import com.bitdecay.jump.leveleditor.example.game.SecretObject;
 import com.bitdecay.jump.leveleditor.example.level.SecretThing;
 import com.bitdecay.jump.leveleditor.render.LevelEditor;
-import com.bytebreak.animagic.BitTextureAtlas;
-import com.bytebreak.animagic.BitTextureAtlasLoader;
 
 import java.util.*;
 
@@ -35,7 +35,6 @@ public class FoxGameLevel implements EditorHook {
     BitWorld world = new BitWorld();
 
     SpriteBatch batch = new SpriteBatch();
-    TextureRegion[] sampleTiles;
 
     Level currentLevel;
 
