@@ -9,13 +9,17 @@ import com.bitdecay.jump.control.PlayerInputController;
 import com.bitdecay.jump.gdx.input.GDXControls;
 import com.bitdecay.jump.gdx.integration.BitTextureAtlas;
 import com.bitdecay.jump.geom.BitRectangle;
-import com.bitdecay.jump.level.builder.DebugSpawnObject;
-import com.bitdecay.jump.level.builder.LevelObject;
+import com.bitdecay.jump.level.DebugSpawnObject;
+import com.bitdecay.jump.level.LevelObject;
 import com.bitdecay.jump.leveleditor.example.game.GameObject;
 import com.bitdecay.jump.render.JumperRenderState;
 import com.bitdecay.jump.render.JumperRenderStateWatcher;
 import com.bytebreak.animagic.Animation;
 import com.bytebreak.animagic.Animator;
+import com.bytebreak.animagic.FrameRate;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by jake on 11/11/2015.
@@ -28,24 +32,26 @@ public class PlayerObject extends GameObject {
     Animator playerAnimator = new Animator("Player");
 
     @Override
-    public BitBody build(LevelObject template) {
+    public List<BitBody> build(LevelObject template) {
         DebugSpawnObject spawnObject = (DebugSpawnObject) template;
         BitBody body = buildPlayerBody(spawnObject);
         buildAnimations();
-        return body;
+        return Arrays.asList(body);
     }
 
     private void buildAnimations() {
         BitTextureAtlas characterAtlas = FoxGameLevel.assetManager.get("packed/character.atlas", BitTextureAtlas.class);
-        Animation rightStand = new Animation(JumperRenderState.RIGHT_STANDING.toString(), Animation.AnimationPlayState.REPEAT, 1, characterAtlas.findRegions("kick").toArray(TextureRegion.class), new int[0]);
-        Animation leftStand = new Animation(JumperRenderState.LEFT_STANDING.toString(), Animation.AnimationPlayState.REPEAT, 1, characterAtlas.findRegions("kick").toArray(TextureRegion.class), new int[0]);
-        Animation rightWalk = new Animation(JumperRenderState.RIGHT_RUNNING.toString(), Animation.AnimationPlayState.REPEAT, 1, characterAtlas.findRegions("walk").toArray(TextureRegion.class), new int[0]);
-        Animation leftWalk = new Animation(JumperRenderState.LEFT_RUNNING.toString(), Animation.AnimationPlayState.REPEAT, 1, characterAtlas.findRegions("walk").toArray(TextureRegion.class), new int[0]);
-        Animation rightJump = new Animation(JumperRenderState.RIGHT_JUMPING.toString(), Animation.AnimationPlayState.REPEAT, 1, characterAtlas.findRegions("jump/2").toArray(TextureRegion.class), new int[0]);
-        Animation leftJump = new Animation(JumperRenderState.LEFT_JUMPING.toString(), Animation.AnimationPlayState.REPEAT, 1, characterAtlas.findRegions("jump/2").toArray(TextureRegion.class), new int[0]);
-        Animation rightFall = new Animation(JumperRenderState.RIGHT_FALLING.toString(), Animation.AnimationPlayState.REPEAT, 1, characterAtlas.findRegions("jump/4").toArray(TextureRegion.class), new int[0]);
-        Animation leftFall = new Animation(JumperRenderState.LEFT_FALLING.toString(), Animation.AnimationPlayState.REPEAT, 1, characterAtlas.findRegions("jump/4").toArray(TextureRegion.class), new int[0]);
+        FrameRate animationRate = FrameRate.perFrame(.05f);
+        Animation rightStand = new Animation(JumperRenderState.RIGHT_STANDING.toString(), Animation.AnimationPlayState.REPEAT, animationRate, characterAtlas.findRegions("kick").toArray(TextureRegion.class), new int[0]);
+        Animation leftStand = new Animation(JumperRenderState.LEFT_STANDING.toString(), Animation.AnimationPlayState.REPEAT, animationRate, characterAtlas.findRegions("kick").toArray(TextureRegion.class), new int[0]);
+        Animation rightWalk = new Animation(JumperRenderState.RIGHT_RUNNING.toString(), Animation.AnimationPlayState.REPEAT, animationRate, characterAtlas.findRegions("walk").toArray(TextureRegion.class), new int[0]);
+        Animation leftWalk = new Animation(JumperRenderState.LEFT_RUNNING.toString(), Animation.AnimationPlayState.REPEAT, animationRate, characterAtlas.findRegions("walk").toArray(TextureRegion.class), new int[0]);
+        Animation rightJump = new Animation(JumperRenderState.RIGHT_JUMPING.toString(), Animation.AnimationPlayState.REPEAT, animationRate, characterAtlas.findRegions("jump/2").toArray(TextureRegion.class), new int[0]);
+        Animation leftJump = new Animation(JumperRenderState.LEFT_JUMPING.toString(), Animation.AnimationPlayState.REPEAT, animationRate, characterAtlas.findRegions("jump/2").toArray(TextureRegion.class), new int[0]);
+        Animation rightFall = new Animation(JumperRenderState.RIGHT_FALLING.toString(), Animation.AnimationPlayState.REPEAT, animationRate, characterAtlas.findRegions("jump/4").toArray(TextureRegion.class), new int[0]);
+        Animation leftFall = new Animation(JumperRenderState.LEFT_FALLING.toString(), Animation.AnimationPlayState.REPEAT, animationRate, characterAtlas.findRegions("jump/4").toArray(TextureRegion.class), new int[0]);
 
+        com.badlogic.gdx.graphics.g2d.Animation thing = null;
         playerAnimator.addAnimation(rightStand);
         playerAnimator.addAnimation(leftStand);
         playerAnimator.addAnimation(rightWalk);

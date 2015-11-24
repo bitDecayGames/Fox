@@ -13,10 +13,10 @@ import com.bitdecay.jump.gdx.integration.BitTextureAtlas;
 import com.bitdecay.jump.gdx.integration.BitTextureAtlasLoader;
 import com.bitdecay.jump.gdx.level.EditorIdentifierObject;
 import com.bitdecay.jump.gdx.level.RenderableLevelObject;
+import com.bitdecay.jump.level.DebugSpawnObject;
 import com.bitdecay.jump.level.Level;
-import com.bitdecay.jump.level.builder.DebugSpawnObject;
-import com.bitdecay.jump.level.builder.LevelObject;
-import com.bitdecay.jump.level.builder.TileObject;
+import com.bitdecay.jump.level.LevelObject;
+import com.bitdecay.jump.level.TileObject;
 import com.bitdecay.jump.leveleditor.EditorHook;
 import com.bitdecay.jump.leveleditor.example.game.GameObject;
 import com.bitdecay.jump.leveleditor.example.game.SecretObject;
@@ -123,7 +123,7 @@ public class FoxGameLevel implements EditorHook {
                 if (builderMap.containsKey(levelObject.getClass())) {
                     GameObject newObject;
                     newObject = (GameObject) builderMap.get(levelObject.getClass()).newInstance();
-                    bodies.add(newObject.build(levelObject));
+                    bodies.addAll(newObject.build(levelObject));
                     gameObjects.add(newObject);
                 } else {
                     bodies.add(levelObject.buildBody());
